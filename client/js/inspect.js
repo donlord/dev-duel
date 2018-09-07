@@ -10,11 +10,20 @@ $('form').submit(() => {
     .then(data => {
       console.log(`Got data for ${username}`)
       console.log(data)
-      /*
-        TODO
-        Attach the data returned to the DOM
-        The data currently hard-coded into the DOM is placeholder data
-       */
+
+      $('.username').html(`${data.username}`)
+      $('.full-name').html(`${data.name}`)
+      $('.location').html(`${data.location}`)
+      $('.email').html(`${data.email}`)
+      $('.bio').html(`${data.bio}`)
+      $('.avatar').attr('src', `${data.avatar_url}`)
+      $('.titles').html(`${data.titles}`)
+      $('.favorite-language').html(`${data.favorite_language}`)
+      $('.total-stars').html(`${data.total_stars}`)
+      $('.most-starred').html(`${data.highest_starred}`)
+      $('.public-repos').html(`${data.public_repos}`)
+      $('.perfectrepo').html(`${data.perfect_repos}`)
+      $('.followers').html(`${data.followers}`)
 
       $('.user-results').removeClass('hide') // Display '.user-results' element
     })

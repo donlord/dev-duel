@@ -115,7 +115,10 @@ input:-ms-input-placeholder {
     text-align: center;
 }
 
-
+.avatar{
+    height: 200px;
+    width:200px;
+}
 
 
 
