@@ -173,13 +173,18 @@ export default () => {
         let specObj = createObj(user, repos)
         res.json(specObj)
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        res.json({
+          error: `The user ${username} does not exist`
+        })
+        // console.log(e)
+      })
   })
 
   /** GET /api/users?username - Get users */
   router.get('/users/', validate(validation.users), (req, res) => {
     const username = req.query.username
-
+    const users = []
     Promise.all([
       axios
         .get(`http://api.github.com/users/${username[0]}`, {
@@ -187,7 +192,10 @@ export default () => {
             Authorization: token
           }
         })
-        .then(data => data.data),
+        .then(data => data.data)
+        .catch(e => {
+          res.json({error: `The user ${username[0]} does not exist`})
+        }),
       axios
         .get(`http://api.github.com/users/${username[0]}/repos`, {
           headers: {
@@ -201,7 +209,10 @@ export default () => {
             Authorization: token
           }
         })
-        .then(data => data.data),
+        .then(data => data.data)
+        .catch(e => {
+          res.json({error: `The user ${username[1]} does not exist`})
+        }),
       axios
         .get(`http://api.github.com/users/${username[1]}/repos`, {
           headers: {
@@ -216,7 +227,9 @@ export default () => {
 
         res.json([specObj, specObj1])
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        console.log(e)
+      })
   })
 
   return router

@@ -8,6 +8,12 @@ $('form').submit(() => {
   fetch(`${USER_URL}/${username}`)
     .then(response => response.json()) // Returns parsed json data from response body as promise
     .then(data => {
+      if (data.error){
+        $('span.error').text(data.error)
+        // $('.username').html(data.error)
+        throw new PermissionDenied()
+      }
+      $('.inspectError').addClass('hide')
       console.log(`Got data for ${username}`)
       console.log(data)
 
@@ -30,6 +36,7 @@ $('form').submit(() => {
     .catch(err => {
       console.log(`Error getting data for ${username}`)
       console.log(err)
+      $('.inspectError').removeClass('hide')
       /*
         TODO
         If there is an error finding the user, instead toggle the display of the '.user-error' element
